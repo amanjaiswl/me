@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aman Jaiswal</title>
+    <link rel="icon" href="mybwphoto.jpg" type="image/jpeg">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            max-width: 800px;
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
-        h1 {
-            font-size: 2em;
+        body {
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: normal;
+            font-style: normal;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #333333;
+            padding: 20px;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+        }
+        #content {
+            max-width: 600px;
+            margin: 0 auto;
         }
         a {
             color: #0366d6;
@@ -21,18 +34,56 @@
         a:hover {
             text-decoration: underline;
         }
+        .hidden {
+            display: none;
+        }
+        @media (min-width: 992px) {
+            body {
+                font-size: 16px;
+            }
+        }
     </style>
+    <script>
+        function toggleStory() {
+            var story = document.getElementById("story");
+            if (story.style.display === "none") {
+                story.style.display = "block";
+            } else {
+                story.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1>Aman Jaiswal</h1>
-    <ul>
-        <li>Went to an all-boys boarding school (golden years of my life).</li>
-        <li>Made a meme about web3 during the peak crypto cycle which got 350k views on YouTube: <a href="https://www.youtube.com/watch?v=i_pYBUZQrhY">Watch here</a>.</li>
-        <li>Did my high school from Bengaluru.</li>
-        <li>Took a gap year after high school.</li>
-        <li>Explored some ideas and did a six-month paid internship at Upliance.ai.</li>
-        <li>Currently a 2nd year CS student at <a href="https://plaksha.edu.in/">Plaksha University</a>.</li>
-    </ul>
-    <p>You can reach me at: <a href="mailto:your_email@example.com">your_email@example.com</a></p>
+    <div id="content">
+        <h1>Aman Jaiswal</h1>
+        <ul>
+            <li>Went to an all-boys boarding school (golden years of my life).</li>
+            <li>Made a meme about web3 during the peak crypto cycle which got 350k views on <a href="https://www.youtube.com/watch?v=i_pYBUZQrhY" target="_blank">YouTube</a>.</li>
+            <li>Did my high school from Bengaluru.</li>
+            <li>
+                Took a gap year after high school.
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="toggleStory()">> short story</a></li>
+                </ul>
+                <div id="story" class="hidden">
+                    <p>I don’t know a lot of things, but I am willing to go the distance to find the answer and solve the problem. My confidence level really boosted when I decided to take a year off after high school in June 2022 to explore what I really wanted to do. During this time, I wanted to work at a tech startup as an intern, but it was really tough to get through any door as I was just a high school kid with no work experience. But I applied to lots and lots of job openings. Ninety percent of them didn’t even bother to send a rejection email. But I didn’t lose hope and kept applying, and it paid off. I got a paid internship at a tech startup in February 2023. The role was initially for 3 months but got extended to 6 months as my employer saw my potential. At this point in time, I was fully sure that I wanted to pursue higher education and joined college in August 2023. For my summer of 2024, I interned at the same employer. Now, I am in the second year of my 4-year degree and enjoying every bit of it. I feel and truly believe that I can do anything and I am ready to put in the work.</p>
+                </div>
+            </li>
+            <li>Currently a 2nd year CS student at <a href="https://plaksha.edu.in/" target="_blank">Plaksha University</a>.</li>
+            <li><a href="current.html" target="_blank">Presently </a>reading/yt courses/project</li>
+        </ul>
+      <p>
+          <a href="https://github.com/amanjaiswl" target="_blank">GitHub</a> | 
+          <a href="https://x.com/jaiswlaman" target="_blank">X</a> | 
+          <a href="https://www.linkedin.com/in/amanjaiswl/" target="_blank">LinkedIn</a> | 
+        <a href="https://www.youtube.com/@bestofaman" target="_blank">YouTube</a> | 
+        <a href="https://internetwisdom.substack.com/" target="_blank">Substack</a> | 
+        <a href="https://codeforces.com/profile/hackerAman1729" target="_blank">CF</a> | 
+          <a href="https://amanjaiswl.github.io/resume/" target="_blank">Resume</a>
+        
+      </p>
+    </div>
 </body>
 </html>
+
