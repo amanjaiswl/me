@@ -6,84 +6,393 @@
     <title>Aman Jaiswal</title>
     <link rel="icon" href="mybwphoto.png" type="image/png">
     <style>
-        html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-high: #e8d8c9;
+            --color-level: #4b607f;
+            --color-feel: #f3701e;
+            --color-bg: #0a0a0a;
+            --color-text: #e8d8c9;
+            --color-text-dim: #9a9a9a;
+        }
+        
+        html {
             height: 100%;
+            scroll-behavior: smooth;
         }
+        
         body {
-            font-size: 14px;
-            line-height: 20px;
-            font-weight: normal;
-            font-style: normal;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            color: #333333;
-            padding: 20px;
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: 100%;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
         }
-        #content {
+        
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(232, 216, 201, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232, 216, 201, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .name {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            color: var(--color-high);
+            text-shadow: 0 0 20px rgba(232, 216, 201, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: var(--color-text-dim);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--color-level), var(--color-feel));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(232, 216, 201, 0.05);
+            border: 1px solid rgba(232, 216, 201, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .timeline-item:hover {
+            background: rgba(232, 216, 201, 0.08);
+            border-color: var(--color-level);
+            transform: translateX(5px);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            background: var(--color-feel);
+            border-radius: 50%;
+            border: 3px solid var(--color-bg);
+            box-shadow: 0 0 0 2px var(--color-feel);
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            background: var(--color-high);
+            box-shadow: 0 0 0 2px var(--color-high);
+        }
+        
+        .timeline-text {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--color-text);
+        }
+        
+        .timeline-link {
+            color: var(--color-feel);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-link:hover {
+            color: var(--color-high);
+            border-bottom-color: var(--color-high);
+        }
+        
+        .story-toggle {
+            color: var(--color-level);
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .story-toggle:hover {
+            color: var(--color-feel);
+        }
+        
+        .story-content {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(75, 96, 127, 0.1);
+            border-left: 3px solid var(--color-level);
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--color-text-dim);
+            display: none;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+        
+        .links-section {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid rgba(232, 216, 201, 0.1);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
             max-width: 600px;
             margin: 0 auto;
         }
-        a {
-            color: #0366d6;
+        
+        .link-item {
+            display: inline-block;
+            padding: 12px 20px;
+            background: rgba(232, 216, 201, 0.05);
+            border: 1px solid rgba(232, 216, 201, 0.1);
+            border-radius: 6px;
+            color: var(--color-text);
             text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
-        a:hover {
-            text-decoration: underline;
+        
+        .link-item:hover {
+            background: var(--color-level);
+            color: var(--color-high);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(75, 96, 127, 0.3);
         }
-        .hidden {
-            display: none;
-        }
-        @media (min-width: 992px) {
-            body {
-                font-size: 16px;
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 15px;
+            }
+            
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline-item::before {
+                left: -25px;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .link-item {
+                padding: 10px 15px;
+                font-size: 12px;
             }
         }
+        
+        /* Zen-inspired floating elements */
+        .floating-accent {
+            position: fixed;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--color-feel), transparent);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .floating-accent:nth-child(1) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-accent:nth-child(2) {
+            top: 60%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .floating-accent:nth-child(3) {
+            top: 80%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
     </style>
+</head>
+<body>
+    <div class="floating-accent"></div>
+    <div class="floating-accent"></div>
+    <div class="floating-accent"></div>
+    
+    <div class="container">
+        <header class="header section">
+            <h1 class="name">Aman Jaiswal</h1>
+            <p class="subtitle">Builder / Student / Explorer</p>
+        </header>
+        
+        <div class="timeline section">
+            <div class="timeline-item">
+                <div class="timeline-text">
+                    Went to an all-boys boarding school (golden years of my life).
+                </div>
+            </div>
+            
+            <div class="timeline-item highlight">
+                <div class="timeline-text">
+                    Made a meme about web3 during the peak crypto cycle which got 350k views on 
+                    <a href="https://www.youtube.com/watch?v=i_pYBUZQrhY" target="_blank" class="timeline-link">YouTube</a>.
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-text">
+                    Did my high school from Bengaluru.
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-text">
+                    Took a gap year after high school.
+                    <div class="story-toggle" onclick="toggleStory()">
+                        → expand story
+                    </div>
+                    <div id="story" class="story-content">
+                        I don't know a lot of things, but I am willing to go the distance to find the answer and solve the problem. My confidence level really boosted when I decided to take a year off after high school in June 2022 to explore what I really wanted to do. During this time, I wanted to work at a tech startup as an intern, but it was really tough to get through any door as I was just a high school kid with no work experience. But I applied to lots and lots of job openings. Ninety percent of them didn't even bother to send a rejection email. But I didn't lose hope and kept applying, and it paid off. I got a paid internship at a tech startup in February 2023. The role was initially for 3 months but got extended to 6 months as my employer saw my potential. At this point in time, I was fully sure that I wanted to pursue higher education and joined college in August 2023. For my summer of 2024, I interned at the same employer. Now, I am in the second year of my 4-year degree and enjoying every bit of it. I feel and truly believe that I can do anything and I am ready to put in the work.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item highlight">
+                <div class="timeline-text">
+                    Presently a 2nd year CS student at 
+                    <a href="https://plaksha.edu.in/" target="_blank" class="timeline-link">Plaksha University</a>.
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-text">
+                    <a href="current.html" target="_blank" class="timeline-link">Currently</a> reading/yt courses/project
+                </div>
+            </div>
+        </div>
+        
+        <div class="links-section section">
+            <div class="links-grid">
+                <a href="https://amanjaiswl.github.io/resume/" target="_blank" class="link-item">Resume</a>
+                <a href="https://github.com/amanjaiswl" target="_blank" class="link-item">GitHub</a>
+                <a href="https://x.com/jaiswlaman" target="_blank" class="link-item">X</a>
+                <a href="https://www.linkedin.com/in/amanjaiswl/" target="_blank" class="link-item">LinkedIn</a>
+                <a href="https://www.youtube.com/@bestofaman" target="_blank" class="link-item">YouTube</a>
+                <a href="https://internetwisdom.substack.com/" target="_blank" class="link-item">Substack</a>
+                <a href="https://codeforces.com/profile/amanjaiswal" target="_blank" class="link-item">CF</a>
+                <a href="mailto:amanvidyaviharian@gmail.com" class="link-item">Email</a>
+            </div>
+        </div>
+    </div>
+    
     <script>
         function toggleStory() {
-            var story = document.getElementById("story");
-            if (story.style.display === "none") {
+            const story = document.getElementById("story");
+            const toggle = document.querySelector(".story-toggle");
+            
+            if (story.style.display === "none" || story.style.display === "") {
                 story.style.display = "block";
+                toggle.textContent = "← collapse story";
             } else {
                 story.style.display = "none";
+                toggle.textContent = "→ expand story";
             }
         }
     </script>
-</head>
-<body>
-    <div id="content">
-        <h1>Aman Jaiswal</h1>
-        <ul>
-            <li>Went to an all-boys boarding school (golden years of my life).</li>
-            <li>Made a meme about web3 during the peak crypto cycle which got 350k views on <a href="https://www.youtube.com/watch?v=i_pYBUZQrhY" target="_blank">YouTube</a>.</li>
-            <li>Did my high school from Bengaluru.</li>
-            <li>
-                Took a gap year after high school.
-                <ul>
-                    <li><a href="javascript:void(0)" onclick="toggleStory()">> short story</a></li>
-                </ul>
-                <div id="story" class="hidden">
-                    <p>I don’t know a lot of things, but I am willing to go the distance to find the answer and solve the problem. My confidence level really boosted when I decided to take a year off after high school in June 2022 to explore what I really wanted to do. During this time, I wanted to work at a tech startup as an intern, but it was really tough to get through any door as I was just a high school kid with no work experience. But I applied to lots and lots of job openings. Ninety percent of them didn’t even bother to send a rejection email. But I didn’t lose hope and kept applying, and it paid off. I got a paid internship at a tech startup in February 2023. The role was initially for 3 months but got extended to 6 months as my employer saw my potential. At this point in time, I was fully sure that I wanted to pursue higher education and joined college in August 2023. For my summer of 2024, I interned at the same employer. Now, I am in the second year of my 4-year degree and enjoying every bit of it. I feel and truly believe that I can do anything and I am ready to put in the work.</p>
-                </div>
-            </li>
-            <li>Presently a 2nd year CS student at <a href="https://plaksha.edu.in/" target="_blank">Plaksha University</a>.</li>
-            <li><a href="current.html" target="_blank">Currently </a>reading/yt courses/project</li>
-        </ul>
-      <p>
-          <a href="https://github.com/amanjaiswl" target="_blank">GitHub</a> | 
-          <a href="https://x.com/jaiswlaman" target="_blank">X</a> | 
-          <a href="https://www.linkedin.com/in/amanjaiswl/" target="_blank">LinkedIn</a> | 
-        <a href="https://www.youtube.com/@bestofaman" target="_blank">YouTube</a> | 
-        <a href="https://internetwisdom.substack.com/" target="_blank">Substack</a> | 
-        <a href="https://codeforces.com/profile/amanjaiswal" target="_blank">CF</a> | 
-          <a href="https://amanjaiswl.github.io/resume/" target="_blank">Resume</a>
-        
-      </p>
-    </div>
 </body>
 </html>
-
